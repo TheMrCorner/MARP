@@ -14,9 +14,25 @@ using namespace std;
 
 /*@ <answer>
 
- Escribe aquí un comentario general sobre la solución, explicando cómo
- se resuelve el problema y cuál es el coste de la solución, en función
- del tamaño del problema.
+ Primero se hace una lectura de la entrada, guardando los valores 
+ de las partituras y el numero de instrumentos diferentes. Después
+ se crea la clase Orchestra, que es la que se va a encargar de repartir
+ las partituras entre los instrumentos. 
+
+ En la constructora se crea una cola de prioridad de structs que guardan
+ el número de instrumentos que hay y las partituras que le corresponden, 
+ iniciando este último valor en 1 puesto que mínimo va a haber una
+ partitura para cada instrumento. Tras esto, se hace una resta para 
+ comprobar cuantas partituras hay que repartir y en caso de que no 
+ queden por repartir, se termina el cálculo y se muestra por pantalla. 
+
+ Si quedaran partituras por repartir se llama a reparte() con el valor
+ m_p actualizado con las partituras que quedan por repartir. Aquí se hace
+ un reparto usando la cola de prioridad. 
+
+ Para usar la cola de prioridad se ha implementado un comparador específico
+ para el struct que calcula cuál es el atril con más personas de un grupo
+ en función de las partituras.
 
  @ </answer> */
 
@@ -42,6 +58,7 @@ private:
     int m_n, m_p; // Partituras y numeros
     priority_queue<pair, vector<pair>, comparator>* m_queue;
 
+    // Coste: O(N) siendo N el valor de las partituras restantes tras repartir las primeras
     void reparte() {
         while (m_p > 0) {
             pair t = m_queue->top();
