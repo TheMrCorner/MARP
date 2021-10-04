@@ -44,16 +44,18 @@ private:
                 dfs(i);
             }
             else {
-                // Detecta ciclo
-                correcto = false;
-            }
-        }
-
+                if (i != ant->at(v)) {
+                    // Detecta ciclo
+                    correcto = false;
+                } // if
+            } // else
+        } // for
     } // dfs
 
 public: 
 
     ArbolLibre(int V, int A) {
+        correcto = true; // Suponemos correcto de primeras
         arbol = new Grafo(V);
         visitado = new vector<bool>(V, false);
         ant = new vector<int>(V);
